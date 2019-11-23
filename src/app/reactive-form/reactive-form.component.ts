@@ -1,5 +1,6 @@
 import {Component, KeyValueDiffers, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CreditCardValidator} from '../reactive-form/validateCcNumber';
 
 @Component({
   selector: 'app-reactive-form',
@@ -8,6 +9,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class ReactiveFormComponent implements OnInit {
   maliciousForm: FormGroup;
+  // public isSubmit: boolean = false;
+  // details:Detail[];
 
   constructor(private fb: FormBuilder) {
     this.maliciousForm = this.fb.group({
@@ -34,8 +37,8 @@ export class ReactiveFormComponent implements OnInit {
     ]],
     cardNum : ['',[
         Validators.required,
-        Validators.pattern('[0-9]{16}')
-        
+        Validators.pattern('[0-9]{16}'),
+        CreditCardValidator      
     ]],
     cardExpire : ['',[
       Validators.required,
@@ -50,5 +53,36 @@ export class ReactiveFormComponent implements OnInit {
     })
     
   }
+
+
+  get cardNum(){
+    return this.maliciousForm.get('cardNum');
+  }
+
+  get cardVCode(){
+    return this.maliciousForm.get('cardVCode');
+  }
+
+ 
+  // addDetail(){
+  //   this.details.push({
+  //   cardType: this.maliciousForm.value.cardType,
+  //   titre: this.maliciousForm.value.titre,
+  //   nom: this.maliciousForm.value.nom,
+  //   cardNum: this.maliciousForm.value.cardNum,
+  //   cardExpire: this.maliciousForm.value.cardExpire,
+  //   cardVCode: this.maliciousForm.value.cardVCode,
+  //   agree: this.maliciousForm.value.agree
+
+  //   })
+  // }
+  
+  // sendForm(): void {
+
+  //   this.addDetail();
+    
+  //   this.isSubmit = true;
+  //   console.log(this.maliciousForm.value);
+  // }
 
 }
