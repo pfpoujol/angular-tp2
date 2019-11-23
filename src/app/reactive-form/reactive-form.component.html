@@ -19,29 +19,44 @@
           <mat-option value="mlle">Mlle</mat-option>
         </mat-select>
         <mat-label>Titre</mat-label>
+        <mat-error>
+          Titre obligatoire.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Nom</mat-label>
         <input matInput placeholder="Dupont" formControlName="nom">
+      <mat-error>
+        Veuillez écrire votre Nom.
+      </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Numéro de carte</mat-label>
         <input matInput placeholder="0000 0000 0000 0000" formControlName="cardNum">
+        <mat-error>
+          Numéro de carte obligatoire.
+        </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Date d'expiration</mat-label>
         <input matInput placeholder="01/12" formControlName="cardExpire">
+        <mat-error>
+          Date d'expiration obligatoire.
+        </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Cryptogramme visuel</mat-label>
-        <input matInput placeholder="000" formControlName="cardExpire">
+        <input matInput placeholder="000" formControlName="cardVCode">
+        <mat-error>
+          Cryptogramme visuel obligatoire.
+        </mat-error>
       </mat-form-field>
     </div>
 

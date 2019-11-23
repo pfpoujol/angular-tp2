@@ -21,6 +21,34 @@ export class ReactiveFormComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.maliciousForm = this.fb.group({
+      cardType : ['',[
+        Validators.required
+    ]],
+    titre : ['',[
+        Validators.required
+    ]],
+    nom : ['',[
+        Validators.required,
+        Validators.pattern('[A-Za-z]*')
+    ]],
+    cardNum : ['',[
+        Validators.required,
+        Validators.pattern('[0-9]{16}')
+        
+    ]],
+    cardExpire : ['',[
+      Validators.required,
+    ]],
+    cardVCode : ['',[
+      Validators.required,
+      Validators.pattern('[0-9]{3}')
+    ]],
+    agree : [Boolean,[
+      Validators.required
+    ]]
+    })
+    
   }
 
 }
