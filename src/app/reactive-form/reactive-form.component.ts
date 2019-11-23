@@ -1,6 +1,6 @@
 import {Component, KeyValueDiffers, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CreditCardValidator} from '../reactive-form/validateCcNumber';
+import {CreditCardValidator} from '../reactive-form/validateCcNumber'; // import du custom validator
 
 @Component({
   selector: 'app-reactive-form',
@@ -9,6 +9,10 @@ import {CreditCardValidator} from '../reactive-form/validateCcNumber';
 })
 export class ReactiveFormComponent implements OnInit {
   maliciousForm: FormGroup;
+  todayDate : Date = new Date();
+  //dateRegex = '(([0-2])|((2)[0-9]))(\/)\d{2}$';     essai d'un pattern pour la date :'(
+
+
   // public isSubmit: boolean = false;
   // details:Detail[];
 
@@ -23,22 +27,22 @@ export class ReactiveFormComponent implements OnInit {
       agree: false
     });
   }
-  ngOnInit() {
+  ngOnInit() { //initialisation de tout les validator
     this.maliciousForm = this.fb.group({
       cardType : ['',[
-        Validators.required
+        Validators.required //Remplir le champ est obligatoire
     ]],
     titre : ['',[
         Validators.required
     ]],
     nom : ['',[
         Validators.required,
-        Validators.pattern('[A-Za-z]*')
+        Validators.pattern('[A-Za-z]*') // définition d'un pattern, ici seulement des lettres et nombre infini de caractere
     ]],
     cardNum : ['',[
         Validators.required,
-        Validators.pattern('[0-9]{16}'),
-        CreditCardValidator      
+        Validators.pattern('[0-9]{16}'), // pattern, seulement chiffre et la longueur doit etre de 16
+        CreditCardValidator  // custom validator, verifie les 1er chiffre du N° de carte  
     ]],
     cardExpire : ['',[
       Validators.required,
@@ -54,9 +58,9 @@ export class ReactiveFormComponent implements OnInit {
     
   }
 
-
-  get cardNum(){
-    return this.maliciousForm.get('cardNum');
+  
+  get cardNum(){ 
+    return this.maliciousForm.get('cardNum'); // recupere le cardNum
   }
 
   get cardVCode(){

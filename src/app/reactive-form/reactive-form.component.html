@@ -20,7 +20,7 @@
         </mat-select>
         <mat-label>Titre</mat-label>
         <mat-error>
-          Titre obligatoire
+          Titre obligatoire <!-- Gestion d'erreur -->
         </mat-error>
       </mat-form-field>
 
@@ -28,31 +28,31 @@
         <mat-label>Nom</mat-label>
         <input matInput placeholder="Dupont" formControlName="nom">
       <mat-error>
-        Veuillez écrire votre Nom
+        Veuillez écrire votre Nom <!-- Gestion d'erreur -->
       </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Numéro de carte</mat-label>
-        <input matInput placeholder="3545 6397 2548 8856" formControlName="cardNum">
-        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.required">
+        <input matInput placeholder="3745 6397 2548 8856" formControlName="cardNum">
+        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.required"> <!-- Gestion d'erreur, champ vide -->
           Numéro de carte obligatoire
         </mat-error>
-        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.pattern">
+        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.pattern"> <!-- Gestion d'erreur, mauvais pattern -->
           Format n° Carte invalide
         </mat-error>
-        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.CreditCardValidator">
-          {{cardNum.errors?.creditCard}}
+        <mat-error *ngIf="cardNum.invalid && cardNum.errors?.creditCard"> <!-- Gestion d'erreur, custom validator -->
+          {{cardNum.errors?.creditCard}} <!-- affichage du message d'erreur, Custom Pipe -->
         </mat-error>
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Date d'expiration</mat-label>
-        <input matInput placeholder="01/12" formControlName="cardExpire">
+        <input matInput placeholder="{{ todayDate | date :'MM/yy'}}" formControlName="cardExpire">
         <mat-error>
-          Date d'expiration obligatoire
+          Date d'expiration obligatoire 
         </mat-error>
       </mat-form-field>
     </div>
