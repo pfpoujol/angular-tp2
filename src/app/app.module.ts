@@ -4,23 +4,27 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
+  MatButtonModule, MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatIconModule,
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule, MatTooltipModule
 } from '@angular/material';
 
 import {ReactiveFormsModule} from '@angular/forms';
-import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
+import { ReactiveFormComponent } from './payment-form/reactive-form.component';
+import {NoAutocompleteDirective} from './payment-form/noAutocomplete';
+import { DialogCbComponent } from './dialog-cb/dialog-cb.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReactiveFormComponent
+    ReactiveFormComponent,
+    NoAutocompleteDirective,
+    DialogCbComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,9 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
     MatCheckboxModule,
     MatInputModule,
     MatButtonModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatCardModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

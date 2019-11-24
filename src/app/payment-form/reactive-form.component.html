@@ -1,0 +1,105 @@
+<mat-card>
+  <mat-card-title>Formulaire de paiement</mat-card-title>
+
+  <form [formGroup]="maliciousForm">
+    <div>
+
+      <mat-radio-group formControlName="cardType">
+        <label class="label" [@isValid]="cardType.invalid && uncompleteValiAttempt ? 'error' : ''">Type de carte</label>
+        <div class="padding-bottom-4 padding-top-6">
+          <mat-radio-button value="visa">Visa</mat-radio-button>
+        </div>
+        <div class="padding-bottom-4">
+          <mat-radio-button value="mc">MasterCard</mat-radio-button>
+        </div>
+        <div class="padding-bottom-4 padding-bottom">
+          <mat-radio-button value="ae" >American Express</mat-radio-button>
+        </div>
+        <mat-error class="error" *ngIf="cardType.invalid && uncompleteValiAttempt"> <!-- Gestion d'erreur, champ vide -->
+          Veuillez selectionner votre type de carte
+        </mat-error>
+      </mat-radio-group>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-select formControlName="titre">
+          <mat-option value="mr">M.</mat-option>
+          <mat-option value="mme">Mme</mat-option>
+          <mat-option value="mlle">Mlle</mat-option>
+        </mat-select>
+        <mat-label>Titre</mat-label>
+        <mat-error>
+          Titre obligatoire <!-- Gestion d'erreur -->
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input matInput placeholder="Dupont" formControlName="nom">
+      <mat-error>
+        Veuillez écrire votre Nom <!-- Gestion d'erreur -->
+      </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appNoAutocomplete [hintLabel]="hint">
+        <mat-label>Numéro de carte</mat-label>
+        <input matInput #input placeholder="4537 6397 2548 8856" type="number" formControlName="cardNum" autocomplete="off">
+        <mat-hint *ngIf="cardNum.value.length < 16">Commence par les chiffres 4, 5, ou 37</mat-hint>
+        <mat-hint align="end">{{input.value?.length || 0}}/16</mat-hint>
+
+        <mat-error *ngIf="cardNum.errors?.required"> <!-- Gestion d'erreur, champ vide -->
+          Numéro de carte obligatoire
+        </mat-error>
+        <mat-error *ngIf="cardNum.errors?.pattern && cardNum.value !== '' && uncompleteValiAttempt"> <!-- Gestion d'erreur, mauvais pattern -->
+          Format n° Carte invalide
+        </mat-error>
+        <mat-error *ngIf="cardNum.errors?.doNotExist && cardNum.value !== ''"> <!-- Gestion d'erreur, custom validator -->
+          {{cardNum.errors?.doNotExist}} <!-- affichage du message d'erreur, Custom Pipe -->
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label >Date d'expiration</mat-label>
+        <input #expire type="month" matInput formControlName="cardExpire">
+        <mat-error *ngIf="cardExpire.invalid && cardExpire.value===''">
+          Date d'expiration obligatoire
+        </mat-error>
+        <mat-error *ngIf="cardExpire.invalid && cardExpire.errors?.expired"> <!-- Gestion d'erreur, custom validator -->
+          {{cardExpire.errors?.expired}} <!-- affichage du message d'erreur, Custom Pipe -->
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Cryptogramme visuel</mat-label>
+        <input matInput placeholder="669" type="number" formControlName="cardVCode">
+        <mat-error *ngIf="cardVCode.invalid && cardVCode.errors?.required">
+          Cryptogramme visuel obligatoire
+        </mat-error>
+        <mat-error *ngIf="cardVCode.invalid && cardVCode.errors?.pattern">
+          Format du Cryptogramme invalide
+        </mat-error>
+      </mat-form-field>
+      <span matTooltip="C'est une série unique de trois chiffres, imprimée sur la face arrière de votre cartes de crédit.">De quoi s'agit-il ?</span>
+    </div>
+    <div>
+      <mat-checkbox color="warn" formControlName="agree">Vous acceptez que ces informations soient utilisées contre vous à des fins
+        malveillantes.
+      </mat-checkbox>
+      <mat-error class="error" *ngIf="agree.invalid && uncompleteValiAttempt"> <!-- Gestion d'erreur, champ vide -->
+        Veuillez acceptez les conditions
+      </mat-error>
+    </div>
+    <div>
+      <button mat-stroked-button (click)="send()" [disabled]="!maliciousForm.valid">Envoyer</button>
+      <span class="padding-left-6" *ngIf="cbSent">Regardez la console ! 👀</span>
+    </div>
+  </form>
+</mat-card>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

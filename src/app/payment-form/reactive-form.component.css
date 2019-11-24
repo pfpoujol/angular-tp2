@@ -1,0 +1,30 @@
+div {
+  padding-bottom: 16px;
+}
+.padding-bottom-4 {
+  padding-bottom: 4px;
+}
+.label {
+  color: rgba(0,0,0,.54);
+  font-size: 12px;
+}
+.error {
+  font-size: 12px;
+}
+.padding-top-6 {
+  padding-top: 6px;
+}
+.padding-bottom-6 {
+  padding-bottom: 6px;
+}
+.padding-left-6 {
+  padding-left:6px;
+}
+
+.test {
+  white-space: pre-line;
+}
+mat-form-field {
+  margin-right: 12px;
+}
+
